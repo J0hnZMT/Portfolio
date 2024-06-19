@@ -10,8 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 /* Routes */
 const usersRoute = require('./routes/user')
+const postRoute = require('./routes/blogs')
 
 app.use('/users', usersRoute);
+app.use('/blog', postRoute);
 
 const port = 3001
 

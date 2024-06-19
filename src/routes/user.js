@@ -1,18 +1,12 @@
 const express = require('express')
 const router = express.Router()
 
-const createService = require('../services/UserServices/createService')
-const retrieveService = require('../services/UserServices/retrieveService')
-const retrieveuserService = require('../services/UserServices/getAllService')
-const updateService = require('../services/UserServices/updateService')
-const deleteService = require('../services/UserServices/deleteService')
-const loginService = require('../services/UserServices/loginService')
-
+const userService = require('../services/userService')
 /* Create a user */
 router.post(`/create`, async (req, res) => {
   const { username, password } = req.body
 
-  const results = await createService(username, password)
+  const results = await userService.createUser(username, password)
 
   if (results) {
     res
@@ -35,7 +29,7 @@ router.post(`/create`, async (req, res) => {
 router.get(`/all`, async (req, res) => {
   const fields = ['id', 'username', 'password']
 
-  const results = await retrieveService(fields)
+  const results = await userService.getAllUser(fields)
 
   if (results) {
     res
@@ -55,7 +49,7 @@ router.get(`/all`, async (req, res) => {
 router.get(`/user`, async (req, res) => {
   const { id } = req.query
 
-  const results = await retrieveuserService(id)
+  const results = await userService.retrieveUser(id)
 
   if (results) {
     res
@@ -75,7 +69,7 @@ router.get(`/user`, async (req, res) => {
 router.post(`/update`, async (req, res) => {
   const { id, username, password } = req.body
 
-  const results = await updateService(id, username, password)
+  const results = await userService.updateUser(id, username, password)
 
   if (results) {
     res
@@ -98,7 +92,7 @@ router.post(`/update`, async (req, res) => {
 router.get(`/delete`, async (req, res) => {
   const { id } = req.query
 
-  const results = await deleteService(id)
+  const results = await userService.deleteUser(id)
 
   if (results) {
     res
@@ -121,7 +115,7 @@ router.get(`/delete`, async (req, res) => {
 router.post(`/login`, async (req, res) => {
     const { username, password } = req.body
   
-    const results = await loginService(username, password)
+    const results = await userService.loginUser(username, password)
   
     if (results) {
       res
